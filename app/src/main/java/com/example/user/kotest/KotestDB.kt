@@ -6,6 +6,20 @@ import org.jetbrains.anko.db.*
 
 class KotestDB(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "KotestData", null, 1) {
 
+    companion object {
+        private var instance: KotestDB? = null
+
+        @Synchronized
+        fun getInstance(ctx: Context): KotestDB {
+            if (instance == null) {
+                instance = KotestDB(ctx.getApplicationContext())
+            }
+            return instance!!
+        }
+    }
+
+
+
     override fun onCreate(db: SQLiteDatabase?) {
         if (db != null) {
             db.createTable("user", true,
@@ -29,3 +43,6 @@ class KotestDB(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "KotestData", null, 
 
 
 }
+
+val Context.database: KotestDB
+    get() = KotestDB.getInstance(getApplicationContext())
