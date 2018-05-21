@@ -36,7 +36,8 @@ class MainActivityKotlin : AppCompatActivity() {
     {
         val tmpImg = File(getExternalFilesDir(null).absolutePath, "tmpImg.jpg")
         val intentfoto = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        intentfoto.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tmpImg))
+        val tmpImgURL =  Uri.fromFile(tmpImg)
+        intentfoto.putExtra(MediaStore.EXTRA_OUTPUT, tmpImgURL)
         startActivityForResult(intentfoto, 300)
         Log.d("TAG", "zzzzzzzzzzzzz")
     }
